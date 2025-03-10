@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Odyssey - Streaming d'Anime Moderne</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar"> 
+            <div class="logo">
+                <span class="logo-text">Anime Odyssey</span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="./index.html" class="active"><span>🏠</span> Accueil</a></li>
+                <li><a href="./discover.html"><span>🔍</span> Découvrir</a></li>
+                <li><a href="./genres.html"><span>🎭</span> Genres</a></li>
+                <li><a href="./profil.html"><span>👤</span> Profil</a></li>
+                <li><a href="./about.html"><span>ℹ</span> À Propos</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <label for="theme-switch" class="switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </nav>
+        <main class="main-content">
+            <header class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher un anime, genre, personnage...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <!-- Affichage pour un utilisateur non connecté -->
+                <div class="auth-button">
+                    <a href="./auth.html" class="btn login-btn">Se connecter</a>
+                    <!-- Vous pouvez ajouter un bouton inscription si besoin-->
+                    <a href="./auth.html" class="btn register-btn">S'inscrire</a>
+                    
+                </div>
+            </header>
+            <section class="featured">
+                <div class="featured-content">
+                    <img src="/img/Vedette.png" alt="Anime en vedette" class="featured-img">
+                    <div class="featured-info">
+                        <h1>Shonen Legends</h1>
+                        <p>Plongez dans une aventure épique avec des combats légendaires et des héros inoubliables.</p>
+                        <div class="buttons">
+                            <button class="play-btn">▶ Jouer</button>
+                            <button class="info-btn">ℹ Plus d'infos</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="categories">
+                <h2>Explorer par Catégorie</h2>
+                <div class="category-grid">
+                    <div class="category-card" style="background: linear-gradient(135deg, #ff6b6b, #ff8787);">Shonen</div>
+                    <div class="category-card" style="background: linear-gradient(135deg, #4ecdc4, #6be4dc);">Seinen</div>
+                    <div class="category-card" style="background: linear-gradient(135deg, #ffcc70, #ffe190);">Isekai</div>
+                    <div class="category-card" style="background: linear-gradient(135deg, #95e1d3, #aaf0e3);">Slice of Life</div>
+                </div>
+            </section>
+            <section class="anime-grid">
+                <h2>Tendances Actuelles</h2>
+                <div class="grid">
+                    <div class="anime-card" style="width: 200px; height: 300px; overflow: hidden;">
+                        <img src="./img/anime1.png" alt="Anime 1" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span>One piece</span>
+                    </div>
+                    <div class="anime-card" style="width: 200px; height: 300px; overflow: hidden;">
+                        <img src="./img/anime2.png" alt="Anime 2" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span>Great Teacher Onizuka</span>
+                    </div>
+                    <div class="anime-card" style="width: 200px; height: 300px; overflow: hidden;">
+                        <img src="./img/anime3.png" alt="Anime 3" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span>Naruto</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/global.js"></script>
+    <script src="js/pages.js"></script>
+</body>
+</html>

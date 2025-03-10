@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Anime Odyssey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <span class="logo-text">Anime Odyssey</span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="index.html"><span>🏠</span> Accueil</a></li>
+                <li><a href="discover.html"><span>🔍</span> Découvrir</a></li>
+                <li><a href="genres.html"><span>🎭</span> Genres</a></li>
+                <li><a href="profile.html" class="active"><span>👤</span> Profil</a></li>
+                <li><a href="about.html"><span>ℹ</span> À Propos</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <label for="theme-switch" class="switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </nav>
+        <main class="main-content">
+            <section class="profile">
+                <h1>Mon Profil</h1>
+                <div class="profile-info">
+                    <img src="https://via.placeholder.com/100" alt="Avatar" class="avatar">
+                    <input type="text" value="Utilisateur" disabled>
+                </div>
+                <div class="favorites">
+                    <h2>Favoris</h2>
+                    <div class="grid">
+                        <div class="anime-card"><img src="https://via.placeholder.com/200x300" alt="Anime 1"><span>Titre 1</span></div>
+                        <div class="anime-card"><img src="https://via.placeholder.com/200x300" alt="Anime 2"><span>Titre 2</span></div>
+                    </div>
+                </div>
+                <div class="watch-history">
+                    <h2>Historique</h2>
+                    <ul>
+                        <li>Titre 1 - Épisode 3</li>
+                        <li>Titre 2 - Épisode 1</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/global.js"></script>
+    <script src="js/pages.js"></script>
+</body>
+</html>

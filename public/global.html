@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Découvrir - Anime Odyssey</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <span class="logo-text">Anime Odyssey</span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="#" class="active"><span>🏠</span> Accueil</a></li>
+                <li><a href="#"><span>🔥</span> Tendances</a></li>
+                <li><a href="#"><span>🌟</span> Populaires</a></li>
+                <li><a href="#"><span>🎬</span> Nouveautés</a></li>
+                <li><a href="#"><span>🎭</span> Genres</a></li>
+                <li><a href="#"><span>❤️</span> Favoris</a></li>
+                <li><a href="#"><span>👤</span> Profil</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <label for="theme-switch" class="switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </nav>
+        <main class="main-content">
+            <header class="header">[Identique à index.html]</header>
+            <section class="discover">
+                <h1>Découvrir</h1>
+                <div class="filters">
+                    <select name="genre"><option>Shonen</option><option>Seinen</option></select>
+                    <input type="range" min="0" max="10" value="5" id="rating-filter">
+                    <button class="filter-btn">Filtrer</button>
+                </div>
+                <div class="grid">[Grille similaire à index.html]</div>
+            </section>
+        </main>
+    </div>
+    <script src="js/global.js"></script>
+    <script src="js/pages.js"></script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Découvrir - Anime Odyssey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/discover.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <span class="logo-text">Anime Odyssey</span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="index.html"><span>🏠</span> Accueil</a></li>
+                <li><a href="discover.html" class="active"><span>🔍</span> Découvrir</a></li>
+                <li><a href="genres.html"><span>🎭</span> Genres</a></li>
+                <li><a href="profile.html"><span>👤</span> Profil</a></li>
+                <li><a href="about.html"><span>ℹ</span> À Propos</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <label for="theme-switch" class="switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </nav>
+        <main class="main-content">
+            <header class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher un anime, genre, personnage...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="user-profile">
+                    <img src="https://via.placeholder.com/40" alt="User Avatar" class="avatar">
+                    <span>Utilisateur</span>
+                </div>
+            </header>
+            <section class="featured">
+                <div class="featured-content">
+                    <img src="./img/Vedette.png" alt="Demon Slayer" class="featured-img">
+                    <div class="featured-info">
+                        <h1>Demon Slayer: Kimetsu no Yaiba</h1>
+                        <p>Tanjiro affronte des démons dans un monde sombre et émouvant.</p>
+                        <div class="buttons">
+                            <button class="play-btn">▶ Regarder</button>
+                            <button class="info-btn">ℹ Détails</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="genres-section">
+                <p>Découvrez les animes qui font vibrer les fans en ce moment, classés par genre.</p>
+                <div class="genres-list">
+                    <div class="genre-item" style="background: linear-gradient(135deg, #ff6b6b, #ff8787);">
+                        <div class="genre-header">Shonen</div>
+                        <div class="genre-anime-list">
+                            <div class="anime-card">
+                                <img src="https://via.placeholder.com/200x300?text=Jujutsu+Kaisen" alt="Jujutsu Kaisen">
+                                <span>Jujutsu Kaisen</span>
+                            </div>
+                            <div class="anime-card">
+                                <img src="https://via.placeholder.com/200x300?text=My+Hero+Academia" alt="My Hero Academia">
+                                <span>My Hero Academia</span>
+                            </div>
+                            <div class="anime-card">
+                                <img src="https://via.placeholder.com/200x300?text=One+Piece" alt="One Piece">
+                                <span>One Piece</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="genre-item" style="background: linear-gradient(135deg, #4ecdc4, #6be4dc);">
+                        <div class="genre-header">Seinen</div>
+                        <div class="genre-anime-list">
+                            <div class="anime-card">
+                                <img src="https://via.placeholder.com/200x300?text=Attack+on+Titan" alt="Attack on Titan">
+                                <span>Attack on Titan</span>
+                            </div>
+                            <div class="anime-card">
+                                <img src="https://via.placeholder.com/200x300?text=Tokyo+Revengers" alt="Tokyo Revengers">
+                                <span>Tokyo Revengers</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="genre-item" style="background: linear-gradient(135deg, #ffcc70, #ffe190);">
+                        <div class="genre-header">Comédie</div>
+                        <div class="genre-anime-list">
+                            <div class="anime-card">
+                                <img src="https://via.placeholder.com/200x300?text=Spy+x+Family" alt="Spy x Family">
+                                <span>Spy x Family</span>
+                            </div>
+                            <div class="anime-card">
+                                <img src="https://via.placeholder.com/200x300?text=Konosuba" alt="Konosuba">
+                                <span>Konosuba</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/global.js"></script>
+    <script src="js/pages.js"></script>
+</body>
+</html>

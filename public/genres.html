@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Odyssey - Catalogue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        /* Styles spécifiques pour le catalogue */
+        .catalogue-section {
+            padding: 40px;
+            background: #1e272e;
+            color: #dfe6e9;
+            min-height: 100vh;
+        }
+
+        .catalogue-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .catalogue-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-group:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .filter-group span {
+            font-weight: 600;
+        }
+
+        .filter-options {
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .filter-group.active .filter-options {
+            display: flex;
+        }
+
+        .filter-option {
+            background: #34495e;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-option:hover {
+            background: #465c71;
+        }
+
+        .search-bar-catalogue {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-bar-catalogue input {
+            width: 80%;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: #dfe6e9;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-bar-catalogue button {
+            padding: 12px 20px;
+            border: none;
+            background: #8e44ad;
+            color: #fff;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .search-bar-catalogue button:hover {
+            transform: scale(1.1);
+        }
+
+        .catalogue-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .catalogue-actions .btn {
+            padding: 12px 25px;
+            background: #8e44ad;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .catalogue-actions .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(142, 68, 173, 0.5);
+        }
+
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .anime-card-catalogue {
+            background: #2d3436;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .anime-card-catalogue:hover {
+            transform: scale(1.05);
+        }
+
+        .anime-card-catalogue img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .anime-card-catalogue .card-info {
+            padding: 15px;
+            color: #dfe6e9;
+        }
+
+        .anime-card-catalogue .card-info h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .anime-card-catalogue .card-info p {
+            font-size: 14px;
+            color: #b2bec3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar"> 
+            <div class="logo">
+                <span class="logo-text">Anime Odyssey</span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="./index.html"><span>🏠</span> Accueil</a></li>
+                <li><a href="./discover.html"><span>🔍</span> Découvrir</a></li>
+                <li><a href="./genres.html"><span>🎭</span> Genres</a></li>
+                <li><a href="./profil.html"><span>👤</span> Profil</a></li>
+                <li><a href="./about.html"><span>ℹ</span> À Propos</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <label for="theme-switch" class="switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </nav>
+        <main class="main-content">
+            <section class="catalogue-section">
+                <div class="catalogue-header">
+                    <h1>📚 Catalogue</h1>
+                </div>
+                <div class="filters">
+                    <div class="filter-group active" onclick="this.classList.toggle('active')">
+                        <span>Tri par Types ▼</span>
+                        <div class="filter-options">
+                            <span class="filter-option">TV</span>
+                            <span class="filter-option">Film</span>
+                            <span class="filter-option">ONA</span>
+                            <span class="filter-option">OVA</span>
+                        </div>
+                    </div>
+                    <div class="filter-group" onclick="this.classList.toggle('active')">
+                        <span>Tri par Langues ▼</span>
+                        <div class="filter-options">
+                            <span class="filter-option">Japonais</span>
+                            <span class="filter-option">Anglais</span>
+                            <span class="filter-option">Français</span>
+                        </div>
+                    </div>
+                    <div class="filter-group" onclick="this.classList.toggle('active')">
+                        <span>Tri par Genres ▼</span>
+                        <div class="filter-options">
+                            <span class="filter-option">Action</span>
+                            <span class="filter-option">Comédie</span>
+                            <span class="filter-option">Drame</span>
+                            <span class="filter-option">Fantasy</span>
+                            <span class="filter-option">Isekai</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-bar-catalogue">
+                    <input type="text" placeholder="Rechercher un titre...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="catalogue-actions">
+                    <button class="btn">Trier</button>
+                    <button class="btn">Aléatoire</button>
+                </div>
+                <div class="anime-grid">
+                    <div class="anime-card-catalogue">
+                        <img src="./img/anime1.png" alt="100 Jours Avant Ta Mort">
+                        <div class="card-info">
+                            <h3>100 Jours Avant Ta Mort</h3>
+                            <p>Comédie, Drame, Romance, School Life...</p>
+                        </div>
+                    </div>
+                    <div class="anime-card-catalogue">
+                        <img src="./img/anime2.png" alt="3D Kanojo">
+                        <div class="card-info">
+                            <h3>3D Kanojo</h3>
+                            <p>Comédie, Drame, Romance, School Life...</p>
+                        </div>
+                    </div>
+                    <div class="anime-card-catalogue">
+                        <img src="./img/anime3.png" alt="Adachi to Shimamura">
+                        <div class="card-info">
+                            <h3>Adachi to Shimamura</h3>
+                            <p>Romance, School Life, Shojo-Ai...</p>
+                        </div>
+                    </div>
+                    <!-- Ajoutez plus de cartes selon vos besoins -->
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/global.js"></script>
+    <script src="js/pages.js"></script>
+</body>
+</html>
