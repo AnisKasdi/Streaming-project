@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regarder - Anime Odyssey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        /* Styles spécifiques pour la page watch */
+        .video-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        video {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .episode-controls {
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .episode-controls button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #8e44ad;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .episode-controls button:hover {
+            background: #a06cd5;
+        }
+        .comments-section {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        body.night-mode .comments-section {
+            background: #2d3436;
+            color: #fff;
+        }
+        .comments-section h3 {
+            margin-bottom: 1rem;
+        }
+        .comment {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        body.night-mode .comment {
+            border-bottom: 1px solid #444;
+        }
+        .comment p {
+            margin: 0.5rem 0;
+        }
+        .comment-author {
+            font-weight: bold;
+        }
+        .new-comment {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .new-comment textarea {
+            resize: vertical;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+        .new-comment button {
+            align-self: flex-end;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            background: #8e44ad;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .new-comment button:hover {
+            background: #a06cd5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <span class="logo-text">Anime Odyssey</span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="index.html"><span>🏠</span> Accueil</a></li>
+                <li><a href="discover.html"><span>🔍</span> Découvrir</a></li>
+                <li><a href="genres.html"><span>🎭</span> Genres</a></li>
+                <li><a href="profil.html"><span>👤</span> Profil</a></li>
+                <li><a href="about.html"><span>ℹ</span> À Propos</a></li>
+            </ul>
+        </nav>
+        <main class="main-content">
+            <header class="header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher un anime, genre, personnage...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="auth-button">
+                    <a href="auth.html" class="btn login-btn">Se connecter</a>
+                    <a href="auth.html" class="btn register-btn">S'inscrire</a>
+                </div>
+            </header>
+            <div class="video-container">
+                <video controls>
+                    <source src="https://via.placeholder.com/video.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la vidéo.
+                </video>
+                <div class="episode-controls">
+                    <button id="prev-episode">Épisode Précédent</button>
+                    <button id="back">Retour</button>
+                    <button id="next-episode">Épisode Suivant</button>
+                </div>
+            </div>
+            <section class="comments-section">
+                <h3>Commentaires</h3>
+                <div class="comments-list">
+                    <!-- Exemple de commentaires statiques -->
+                    <div class="comment">
+                        <p class="comment-author">Utilisateur1:</p>
+                        <p>Super épisode, j'ai adoré les scènes d'action!</p>
+                    </div>
+                    <div class="comment">
+                        <p class="comment-author">Utilisateur2:</p>
+                        <p>Hâte de voir la suite, vraiment captivant.</p>
+                    </div>
+                </div>
+                <div class="new-comment">
+                    <textarea id="comment-input" rows="3" placeholder="Laissez un commentaire..."></textarea>
+                    <button id="submit-comment">Envoyer</button>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="js/global.js"></script>
+    <script>
+        // Récupération des paramètres de l'URL
+        const params = new URLSearchParams(window.location.search);
+        const animeId = params.get("anime");
+        const currentEp = parseInt(params.get("ep")) || 1; // Valeur par défaut : 1
+
+        document.getElementById('prev-episode').addEventListener('click', () => {
+            if (currentEp > 1) {
+                const newEp = currentEp - 1;
+                window.location.href = `watch.html?anime=${animeId}&ep=${newEp}`;
+            } else {
+                alert("C'est le premier épisode !");
+            }
+        });
+
+        document.getElementById('next-episode').addEventListener('click', () => {
+            const newEp = currentEp + 1;
+            window.location.href = `watch.html?anime=${animeId}&ep=${newEp}`;
+        });
+
+        document.getElementById('back').addEventListener('click', () => {
+            window.history.back();
+        });
+
+        // Exemple de gestion du commentaire
+        document.getElementById('submit-comment').addEventListener('click', () => {
+            const commentText = document.getElementById('comment-input').value.trim();
+            if(commentText) {
+                // Logique à implémenter pour sauvegarder ou afficher le nouveau commentaire
+                alert('Commentaire soumis: ' + commentText);
+                document.getElementById('comment-input').value = '';
+            }
+        });
+    </script>
+    <script>
+        // Fonction pour récupérer un cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+    
+        // Exécuter au chargement de la page
+        document.addEventListener("DOMContentLoaded", () => {
+            const username = getCookie("username");
+            const authButtons = document.querySelector(".auth-button");
+            const loginBtn = document.querySelector(".login-btn");
+            const registerBtn = document.querySelector(".register-btn");
+    
+            console.log("Cookie username:", username);
+    
+            if (username) {
+                // Utilisateur connecté : masquer les boutons de connexion/inscription
+                loginBtn.style.display = "none";
+                registerBtn.style.display = "none";
+    
+                // Ajouter un bouton de déconnexion
+                const logoutBtn = document.createElement("button");
+                logoutBtn.textContent = "Déconnexion";
+                logoutBtn.className = "btn logout-btn";
+                logoutBtn.style.backgroundColor = "#e74c3c"; // Rouge pour différencier
+                logoutBtn.style.color = "#fff";
+                logoutBtn.style.padding = "0.5rem 1rem";
+                logoutBtn.style.borderRadius = "5px";
+                logoutBtn.style.cursor = "pointer";
+                logoutBtn.addEventListener("click", () => {
+                    // Supprimer le cookie
+                    document.cookie = "username=; Max-Age=0; Path=/";
+                    console.log("Déconnexion, cookie supprimé");
+                    // Recharger la page pour réafficher les boutons
+                    window.location.href = "./index.html";
+                });
+    
+                authButtons.appendChild(logoutBtn);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -3,11 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anime Odyssey - Streaming d'Anime Moderne</title>
+    <title>Anime Odyssey - Présentation</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="css/pages.css">
+    <style>
+        /* Styles dark mode généraux */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        /* Présentation du site */
+        .presentation {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #222831, #393e46);
+            margin: 2rem auto;
+            max-width: 800px;
+            border-radius: 10px;
+        }
+        .presentation h1 {
+            margin-bottom: 1rem;
+        }
+        .presentation p {
+            margin-bottom: 1.5rem;
+        }
+        .presentation button {
+            padding: 0.75rem 1.5rem;
+            background: #00adb5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .presentation button:hover {
+            background: #008c9e;
+        }
+        /* Couleurs dark mode pour les catégories */
+        .categories {
+            margin: 2rem 0;
+            text-align: center;
+        }
+        .category-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .category-card {
+            padding: 1rem;
+            border-radius: 8px;
+            flex: 1 0 150px;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .category-shonen {
+            background: linear-gradient(135deg, #8e0e00, #1f1c18);
+        }
+        .category-seinen {
+            background: linear-gradient(135deg, #3a3a3a, #1c1c1c);
+        }
+        .category-isekai {
+            background: linear-gradient(135deg, #4a148c, #7b1fa2);
+        }
+        .category-slice {
+            background: linear-gradient(135deg, #37474f, #263238);
+        }
+        /* Containers de messages sympathiques */
+        .message-container {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            text-align: center;
+            font-style: italic;
+        }
+        /* Bouton logout personnalisé */
+        .logout-btn {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        /* Styles pour la grille d'anime */
+        .anime-grid {
+            margin: 2rem 0;
+        }
+        .anime-card {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: transform 0.3s ease;
+        }
+        .anime-card:hover {
+            transform: scale(1.03);
+        }
+        .anime-card h3 {
+            margin: 0.5rem 0;
+        }
+        .auth-button {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0.5rem;
+        }
+        .auth-button .btn,
+        .auth-button button {
+            /* Assurez-vous que ces éléments ont un padding cohérent */
+            padding: 0.5rem 1rem;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -22,12 +134,6 @@
                 <li><a href="./profil.html"><span>👤</span> Profil</a></li>
                 <li><a href="./about.html"><span>ℹ</span> À Propos</a></li>
             </ul>
-            <div class="theme-toggle">
-                <input type="checkbox" id="theme-switch">
-                <label for="theme-switch" class="switch">
-                    <span class="slider"></span>
-                </label>
-            </div>
         </nav>
         <main class="main-content">
             <header class="header">
@@ -35,56 +141,182 @@
                     <input type="text" placeholder="Rechercher un anime, genre, personnage...">
                     <button class="search-btn">🔍</button>
                 </div>
-                <!-- Affichage pour un utilisateur non connecté -->
                 <div class="auth-button">
                     <a href="./auth.html" class="btn login-btn">Se connecter</a>
-                    <!-- Vous pouvez ajouter un bouton inscription si besoin-->
                     <a href="./auth.html" class="btn register-btn">S'inscrire</a>
-                    
+                </div>
+                <div class="user-profil">
+                    <!-- Le profil sera injecté ici si connecté -->
                 </div>
             </header>
-            <section class="featured">
-                <div class="featured-content">
-                    <img src="/img/Vedette.png" alt="Anime en vedette" class="featured-img">
-                    <div class="featured-info">
-                        <h1>Shonen Legends</h1>
-                        <p>Plongez dans une aventure épique avec des combats légendaires et des héros inoubliables.</p>
-                        <div class="buttons">
-                            <button class="play-btn">▶ Jouer</button>
-                            <button class="info-btn">ℹ Plus d'infos</button>
-                        </div>
-                    </div>
+            <section id="search-results" class="grid" style="margin: 2rem auto; max-width: 800px;"></section>
+            
+            <!-- Page de Présentation -->
+            <section class="presentation">
+                <h1>Bienvenue sur Anime Odyssey</h1>
+                <p>
+                    Plongez dans l'univers des animés modernes et découvrez vos séries préférées.
+                    Notre plateforme vous offre une expérience immersive et des contenus exclusifs.
+                </p>
+                <button onclick="window.location.href='discover.html'">Aller découvrir</button>
+            </section>
+            
+            <!-- Containers de messages sympathiques -->
+            <section class="messages">
+                <div class="message-container">
+                    "L'aventure commence ici! Explorez et vivez chaque moment intensément."
+                </div>
+                <div class="message-container">
+                    "Rejoignez une communauté passionnée et partagez vos émotions."
+                </div>
+                <div class="message-container">
+                    "Chaque anime raconte une histoire unique, prête à vous émerveiller."
                 </div>
             </section>
+            
+            <!-- Section Catégories sous forme de liens -->
             <section class="categories">
                 <h2>Explorer par Catégorie</h2>
                 <div class="category-grid">
-                    <div class="category-card" style="background: linear-gradient(135deg, #ff6b6b, #ff8787);">Shonen</div>
-                    <div class="category-card" style="background: linear-gradient(135deg, #4ecdc4, #6be4dc);">Seinen</div>
-                    <div class="category-card" style="background: linear-gradient(135deg, #ffcc70, #ffe190);">Isekai</div>
-                    <div class="category-card" style="background: linear-gradient(135deg, #95e1d3, #aaf0e3);">Slice of Life</div>
+                    <a href="discover.html?category=shonen" class="category-card category-shonen">Shonen</a>
+                    <a href="discover.html?category=seinen" class="category-card category-seinen">Seinen</a>
+                    <a href="discover.html?category=isekai" class="category-card category-isekai">Isekai</a>
+                    <a href="discover.html?category=slice" class="category-card category-slice">Slice of Life</a>
                 </div>
             </section>
+            
+            <!-- Section Tendances Actuelles depuis l'API -->
             <section class="anime-grid">
                 <h2>Tendances Actuelles</h2>
-                <div class="grid">
-                    <div class="anime-card" style="width: 200px; height: 300px; overflow: hidden;">
-                        <img src="./img/anime1.png" alt="Anime 1" style="width: 100%; height: 100%; object-fit: cover;">
-                        <span>One piece</span>
-                    </div>
-                    <div class="anime-card" style="width: 200px; height: 300px; overflow: hidden;">
-                        <img src="./img/anime2.png" alt="Anime 2" style="width: 100%; height: 100%; object-fit: cover;">
-                        <span>Great Teacher Onizuka</span>
-                    </div>
-                    <div class="anime-card" style="width: 200px; height: 300px; overflow: hidden;">
-                        <img src="./img/anime3.png" alt="Anime 3" style="width: 100%; height: 100%; object-fit: cover;">
-                        <span>Naruto</span>
-                    </div>
+                <div class="grid" id="animeGrid">
+                    <!-- Les cartes d'anime seront injectées ici -->
                 </div>
             </section>
         </main>
     </div>
+    
+    <!-- Script pour générer le contenu dynamique des anime depuis l'API -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Récupération des tendances via l'API
+            fetch("/api/animes", { credentials: "include" })
+                .then(response => {
+                    if (!response.ok) throw new Error("Erreur lors du chargement des animes");
+                    return response.json();
+                })
+                .then(data => {
+                    // On suppose que l'API renvoie data.data (comme Jikan)
+                    const animes = data.data || [];
+                    const animeGrid = document.getElementById("animeGrid");
+                    animes.forEach(anime => {
+                        const card = document.createElement("div");
+                        card.className = "anime-card";
+                        
+                        // Création de l'image de l'anime
+                        const img = document.createElement("img");
+                        img.src = anime.images.jpg.image_url || "./img/placeholder.png";
+                        img.alt = anime.title;
+                        img.style.width = "100%";
+                        img.style.height = "200px";
+                        img.style.objectFit = "cover";
+                        img.style.borderRadius = "4px";
+                        
+                        // Création du titre
+                        const title = document.createElement("h3");
+                        title.textContent = anime.title;
+                        title.style.textAlign = "center";
+    
+                        card.appendChild(img);
+                        card.appendChild(title);
+    
+                        if (anime.exclusivity) {
+                            const exclusivityText = document.createElement("p");
+                            exclusivityText.textContent = "Découvrez les dernières exclusivités!";
+                            exclusivityText.style.textAlign = "center";
+                            exclusivityText.style.color = "#e74c3c";
+                            exclusivityText.style.fontWeight = "600";
+                            card.appendChild(exclusivityText);
+    
+                            // Bouton soutien transformé en lien
+                            const supportLink = document.createElement("a");
+                            supportLink.href = "discover.html";
+                            supportLink.textContent = "Soutenir";
+                            supportLink.style.display = "block";
+                            supportLink.style.textAlign = "center";
+                            supportLink.style.backgroundColor = "#e74c3c";
+                            supportLink.style.color = "white";
+                            supportLink.style.textDecoration = "none";
+                            supportLink.style.borderRadius = "4px";
+                            supportLink.style.padding = "0.5rem";
+                            supportLink.style.marginTop = "0.5rem";
+                            card.appendChild(supportLink);
+                        }
+    
+                        animeGrid.appendChild(card);
+                    });
+                })
+                .catch(error => console.error("Erreur:", error));
+        });
+    </script>
+    
+    <!-- Script pour gérer l'affichage du profil et des boutons d'authentification -->
+    <script>
+        // Fonction pour récupérer un cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            const username = getCookie("username");
+            const authButtons = document.querySelector(".auth-button");
+            const loginBtn = document.querySelector(".login-btn");
+            const registerBtn = document.querySelector(".register-btn");
+            const userProfil = document.querySelector(".user-profil");
+    
+            if (username) {
+                // Masquer les boutons de connexion/inscription
+                loginBtn.style.display = "none";
+                registerBtn.style.display = "none";
+    
+                // Ajouter le bouton de déconnexion
+                const logoutBtn = document.createElement("button");
+                logoutBtn.textContent = "Déconnexion";
+                logoutBtn.className = "btn logout-btn";
+                logoutBtn.addEventListener("click", () => {
+                    document.cookie = "username=; Max-Age=0; Path=/";
+                    window.location.href = "./index.html";
+                });
+                authButtons.appendChild(logoutBtn);
+    
+                // Récupérer et afficher les informations du profil
+                fetch("/api/profile", { credentials: "include" })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Erreur lors du chargement du profil");
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data && data.username) {
+                            userProfil.innerHTML = `
+                                <img src="${data.profilePicture || 'https://via.placeholder.com/40'}" alt="Avatar" class="avatar" style="border-radius:50%;width:40px;height:40px;">
+                                <span>${data.username}</span>
+                            `;
+                        }
+                    })
+                    .catch(error => console.error("Erreur:", error));
+            } else {
+                // Si non connecté, masquer le profil et afficher les boutons d'authentification
+                userProfil.style.display = "none";
+                loginBtn.style.display = "block";
+                registerBtn.style.display = "block";
+            }
+        });
+    </script>
+    
     <script src="js/global.js"></script>
     <script src="js/pages.js"></script>
+    <script></script>
 </body>
 </html>

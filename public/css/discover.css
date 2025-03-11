@@ -1,4 +1,4 @@
-/* Réutilisation des styles fournis */
+/* Styles de base réutilisés */
 .header {
     display: flex;
     justify-content: space-between;
@@ -123,62 +123,89 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Styles spécifiques à la section Genres */
+/* Styles pour la section Genres */
 .genres-section {
     margin-bottom: 50px;
+    background: #1a1a2e;
+    padding: 20px 0;
 }
 
-.genres-section p {
+.genres-subtitle {
     font-size: 18px;
-    margin-bottom: 30px;
-    color: #666;
+    color: #a9a9b0;
     text-align: center;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 30px;
 }
 
 .genres-list {
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 20px;
 }
 
 .genre-item {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+    border-radius: 15px;
     overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
 }
 
 .genre-item:hover {
-    transform: scale(1.01);
+    transform: scale(1.02);
+}
+
+.genre-item.shonen {
+    background: linear-gradient(to right, #3d0b0b, #6b1e1e);
+}
+
+.genre-item.seinen {
+    background: linear-gradient(to right, #1a2634, #2e3b55);
+}
+
+.genre-item.comedy {
+    background: linear-gradient(to right, #2f2e41, #5a5560);
 }
 
 .genre-header {
-    padding: 20px;
+    padding: 15px;
     color: #fff;
     text-align: center;
     font-size: 24px;
-    font-weight: 600;
-    background: inherit; /* Hérite du dégradé du parent */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.carousel-container {
+    position: relative;
+    padding: 20px 50px;
 }
 
 .genre-anime-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 25px;
-    padding: 20px;
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE et Edge */
+}
+
+.genre-anime-list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
 .genre-anime-list .anime-card {
+    flex: 0 0 220px;
     position: relative;
-    border-radius: 15px;
+    border-radius: 10px;
     overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    height: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
-    height: 300px; /* Hauteur fixe pour uniformité */
 }
 
 .genre-anime-list .anime-card:hover {
@@ -189,18 +216,48 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    filter: brightness(90%);
 }
 
 .genre-anime-list .anime-card span {
     position: absolute;
-    bottom: 15px;
-    left: 15px;
+    bottom: 10px;
+    left: 10px;
     color: #fff;
     background: rgba(0, 0, 0, 0.7);
-    padding: 8px 15px;
-    border-radius: 10px;
-    font-size: 16px;
-    transition: opacity 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.carousel-prev, .carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(45deg, #8e44ad, #3498db);
+    color: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, background 0.3s ease;
+    z-index: 10;
+}
+
+.carousel-prev {
+    left: 10px;
+}
+
+.carousel-next {
+    right: 10px;
+}
+
+.carousel-prev:hover, .carousel-next:hover {
+    transform: translateY(-50%) scale(1.1);
+    background: linear-gradient(45deg, #3498db, #8e44ad);
 }
 
 /* Mode nuit */
@@ -210,13 +267,17 @@ body.night-mode .search-bar {
 
 body.night-mode .featured-content,
 body.night-mode .genre-item {
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1), 0 0 20px rgba(142, 68, 173, 0.4);
 }
 
-body.night-mode .genres-section p {
+body.night-mode .genres-section {
+    background: #121221;
+}
+
+body.night-mode .genres-subtitle {
     color: #b2bec3;
 }
 
-body.night-mode .genre-item {
-    background: rgba(45, 52, 54, 0.9);
+body.night-mode .genre-header {
+    background: rgba(0, 0, 0, 0.7);
 }

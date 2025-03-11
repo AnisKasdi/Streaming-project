@@ -16,52 +16,51 @@
             color: #dfe6e9;
             min-height: 100vh;
         }
-
         .catalogue-header {
             text-align: center;
             margin-bottom: 30px;
         }
-
         .catalogue-header h1 {
             font-size: 36px;
             font-weight: 700;
             margin-bottom: 10px;
         }
-
         .filters {
             display: flex;
             gap: 20px;
             margin-bottom: 30px;
             flex-wrap: wrap;
         }
-
         .filter-group {
             background: rgba(255, 255, 255, 0.1);
             padding: 10px 20px;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
         }
-
         .filter-group:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-
         .filter-group span {
             font-weight: 600;
         }
-
         .filter-options {
             display: none;
             flex-wrap: wrap;
             gap: 10px;
             padding: 10px 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #1e272e;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
         }
-
         .filter-group.active .filter-options {
             display: flex;
         }
-
         .filter-option {
             background: #34495e;
             padding: 8px 15px;
@@ -70,11 +69,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
         .filter-option:hover {
             background: #465c71;
         }
-
         .search-bar-catalogue {
             width: 100%;
             max-width: 400px;
@@ -83,8 +80,9 @@
             border-radius: 50px;
             padding: 5px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
         }
-
         .search-bar-catalogue input {
             width: 80%;
             padding: 12px;
@@ -94,7 +92,6 @@
             outline: none;
             font-size: 16px;
         }
-
         .search-bar-catalogue button {
             padding: 12px 20px;
             border: none;
@@ -104,18 +101,38 @@
             cursor: pointer;
             transition: transform 0.3s;
         }
-
         .search-bar-catalogue button:hover {
             transform: scale(1.1);
         }
-
+        .active-filters {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filter-chip {
+            background: #8e44ad;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .filter-chip button {
+            background: transparent;
+            border: none;
+            color: #fff;
+            margin-left: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
         .catalogue-actions {
             display: flex;
             justify-content: center;
             gap: 20px;
             margin-bottom: 30px;
         }
-
         .catalogue-actions .btn {
             padding: 12px 25px;
             background: #8e44ad;
@@ -124,57 +141,75 @@
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-
+        .catalogue-actions .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+        }
+        .catalogue-actions .btn:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
         .catalogue-actions .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(142, 68, 173, 0.5);
         }
-
         .anime-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 25px;
         }
-
         .anime-card-catalogue {
             background: #2d3436;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
+            position: relative;
         }
-
         .anime-card-catalogue:hover {
             transform: scale(1.05);
         }
-
         .anime-card-catalogue img {
             width: 100%;
             height: 250px;
             object-fit: cover;
         }
-
         .anime-card-catalogue .card-info {
             padding: 15px;
             color: #dfe6e9;
         }
-
         .anime-card-catalogue .card-info h3 {
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 5px;
         }
-
         .anime-card-catalogue .card-info p {
             font-size: 14px;
             color: #b2bec3;
+        }
+        .error-message {
+            color: #fff;
+            background: #ff4444;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <nav class="sidebar"> 
+        <nav class="sidebar">
             <div class="logo">
                 <span class="logo-text">Anime Odyssey</span>
             </div>
@@ -185,83 +220,171 @@
                 <li><a href="./profil.html"><span>👤</span> Profil</a></li>
                 <li><a href="./about.html"><span>ℹ</span> À Propos</a></li>
             </ul>
-            <div class="theme-toggle">
-                <input type="checkbox" id="theme-switch">
-                <label for="theme-switch" class="switch">
-                    <span class="slider"></span>
-                </label>
-            </div>
         </nav>
         <main class="main-content">
             <section class="catalogue-section">
                 <div class="catalogue-header">
                     <h1>📚 Catalogue</h1>
                 </div>
+                <!-- Filtres dynamiques -->
                 <div class="filters">
-                    <div class="filter-group active" onclick="this.classList.toggle('active')">
+                    <div class="filter-group" onclick="this.classList.toggle('active')">
                         <span>Tri par Types ▼</span>
                         <div class="filter-options">
-                            <span class="filter-option">TV</span>
-                            <span class="filter-option">Film</span>
-                            <span class="filter-option">ONA</span>
-                            <span class="filter-option">OVA</span>
+                            <span class="filter-option" data-type="TV">TV</span>
+                            <span class="filter-option" data-type="Film">Film</span>
+                            <span class="filter-option" data-type="ONA">ONA</span>
+                            <span class="filter-option" data-type="OVA">OVA</span>
                         </div>
                     </div>
                     <div class="filter-group" onclick="this.classList.toggle('active')">
                         <span>Tri par Langues ▼</span>
                         <div class="filter-options">
-                            <span class="filter-option">Japonais</span>
-                            <span class="filter-option">Anglais</span>
-                            <span class="filter-option">Français</span>
+                            <span class="filter-option" data-lang="Japonais">Japonais</span>
+                            <span class="filter-option" data-lang="Anglais">Anglais</span>
+                            <span class="filter-option" data-lang="Français">Français</span>
                         </div>
                     </div>
                     <div class="filter-group" onclick="this.classList.toggle('active')">
                         <span>Tri par Genres ▼</span>
                         <div class="filter-options">
-                            <span class="filter-option">Action</span>
-                            <span class="filter-option">Comédie</span>
-                            <span class="filter-option">Drame</span>
-                            <span class="filter-option">Fantasy</span>
-                            <span class="filter-option">Isekai</span>
+                            <span class="filter-option" data-genre="Action">Action</span>
+                            <span class="filter-option" data-genre="Comédie">Comédie</span>
+                            <span class="filter-option" data-genre="Drame">Drame</span>
+                            <span class="filter-option" data-genre="Fantasy">Fantasy</span>
+                            <span class="filter-option" data-genre="Isekai">Isekai</span>
                         </div>
                     </div>
                 </div>
+                <!-- Section des filtres actifs -->
+                <div id="active-filters" class="active-filters"></div>
+                <!-- Barre de recherche -->
                 <div class="search-bar-catalogue">
-                    <input type="text" placeholder="Rechercher un titre...">
+                    <input type="text" id="catalogue-search" placeholder="Rechercher un titre...">
                     <button class="search-btn">🔍</button>
                 </div>
+                <!-- Actions -->
                 <div class="catalogue-actions">
-                    <button class="btn">Trier</button>
-                    <button class="btn">Aléatoire</button>
+                    <button class="btn" id="sort-btn">Trier</button>
+                    <button class="btn" id="random-btn">Aléatoire</button>
                 </div>
-                <div class="anime-grid">
-                    <div class="anime-card-catalogue">
-                        <img src="./img/anime1.png" alt="100 Jours Avant Ta Mort">
-                        <div class="card-info">
-                            <h3>100 Jours Avant Ta Mort</h3>
-                            <p>Comédie, Drame, Romance, School Life...</p>
-                        </div>
-                    </div>
-                    <div class="anime-card-catalogue">
-                        <img src="./img/anime2.png" alt="3D Kanojo">
-                        <div class="card-info">
-                            <h3>3D Kanojo</h3>
-                            <p>Comédie, Drame, Romance, School Life...</p>
-                        </div>
-                    </div>
-                    <div class="anime-card-catalogue">
-                        <img src="./img/anime3.png" alt="Adachi to Shimamura">
-                        <div class="card-info">
-                            <h3>Adachi to Shimamura</h3>
-                            <p>Romance, School Life, Shojo-Ai...</p>
-                        </div>
-                    </div>
-                    <!-- Ajoutez plus de cartes selon vos besoins -->
+                <!-- Grille des animes générée dynamiquement -->
+                <div class="anime-grid" id="anime-grid">
+                    <p>Chargement des animes...</p>
                 </div>
             </section>
         </main>
     </div>
     <script src="js/global.js"></script>
-    <script src="js/pages.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        let animes = [];
+        try {
+          const response = await fetch("https://api.jikan.moe/v4/anime?limit=20");
+          if (!response.ok) {
+            throw new Error("Erreur lors du chargement des données");
+          }
+          const data = await response.json();
+          animes = data.data || [];
+          displayAnimes(animes);
+        } catch (error) {
+          console.error(error);
+          document.getElementById("anime-grid").innerHTML = `<p class="error-message">Impossible de charger les données.</p>`;
+        }
+
+        function displayAnimes(animes) {
+          const animeGrid = document.getElementById("anime-grid");
+          animeGrid.innerHTML = "";
+          animes.forEach(anime => {
+            const card = document.createElement("div");
+            card.className = "anime-card-catalogue";
+            card.innerHTML = `
+              <a href="anime-details.html?id=${anime.mal_id}">
+                <img src="${anime.images.jpg.large_image_url || 'https://via.placeholder.com/200x250'}" alt="${anime.title}">
+                <div class="card-info">
+                  <h3>${anime.title}</h3>
+                  <p>${anime.genres?.map(g => g.name).join(", ") || ""}</p>
+                </div>
+              </a>
+            `;
+            animeGrid.appendChild(card);
+          });
+        }
+        
+        // Gestion de la barre de recherche
+        const searchInput = document.getElementById("catalogue-search");
+        const searchButton = document.querySelector(".search-btn");
+        searchButton.addEventListener("click", () => {
+          const query = searchInput.value.trim().toLowerCase();
+          const filteredAnimes = animes.filter(anime => anime.title.toLowerCase().includes(query));
+          displayAnimes(filteredAnimes);
+        });
+
+        // Bouton Trier
+        const sortButton = document.getElementById("sort-btn");
+        sortButton.addEventListener("click", () => {
+          const sortedAnimes = [...animes].sort((a, b) => a.title.localeCompare(b.title));
+          displayAnimes(sortedAnimes);
+        });
+
+        // Bouton Aléatoire
+        const randomButton = document.getElementById("random-btn");
+        randomButton.addEventListener("click", () => {
+          const randomAnime = animes[Math.floor(Math.random() * animes.length)];
+          displayAnimes([randomAnime]);
+        });
+
+        // Gestion des filtres actifs
+        const activeFiltersContainer = document.getElementById("active-filters");
+        document.querySelectorAll(".filter-option").forEach(filterOption => {
+          filterOption.addEventListener("click", () => {
+            const filterName = filterOption.textContent;
+            // Vérifier si le filtre est déjà actif
+            if (document.querySelector(`.filter-chip[data-filter="${filterName}"]`)) return;
+            const chip = document.createElement("span");
+            chip.className = "filter-chip";
+            chip.setAttribute("data-filter", filterName);
+            chip.innerHTML = `${filterName} <button class="remove-chip">×</button>`;
+            activeFiltersContainer.appendChild(chip);
+
+            // Vous pouvez ici ajouter la logique pour filtrer le catalogue en fonction des filtres actifs
+            
+            chip.querySelector(".remove-chip").addEventListener("click", () => {
+              chip.remove();
+              // Et ici mettre à jour le filtrage si nécessaire
+            });
+          });
+        });
+      });
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", () => {
+        const username = getCookie("username");
+        if (username) {
+            fetch("/api/profile")
+                .then(response => {
+                    if (!response.ok) throw new Error("Erreur lors du chargement du profil");
+                    return response.json();
+                })
+                .then(data => {
+                    // Met à jour la div "user-profil" avec le nom et l'avatar
+                    const userProfil = document.querySelector(".user-profil");
+                    if (data && data.username) {
+                        userProfil.innerHTML = `
+                            <img src="${data.profilePicture}" alt="Avatar" class="avatar" style="border-radius:50%;width:40px;height:40px;">
+                            <span>${data.username}</span>
+                        `;
+                    }
+                })
+                .catch(error => console.error("Erreur:", error));
+        }
+    });
+    
+    // Fonction utilitaire pour récupérer un cookie
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return null;
+    }</script>
 </body>
 </html>

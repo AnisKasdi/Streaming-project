@@ -19,15 +19,9 @@
                 <li><a href="index.html"><span>🏠</span> Accueil</a></li>
                 <li><a href="discover.html" class="active"><span>🔍</span> Découvrir</a></li>
                 <li><a href="genres.html"><span>🎭</span> Genres</a></li>
-                <li><a href="profile.html"><span>👤</span> Profil</a></li>
+                <li><a href="profil.html"><span>👤</span> Profil</a></li>
                 <li><a href="about.html"><span>ℹ</span> À Propos</a></li>
             </ul>
-            <div class="theme-toggle">
-                <input type="checkbox" id="theme-switch">
-                <label for="theme-switch" class="switch">
-                    <span class="slider"></span>
-                </label>
-            </div>
         </nav>
         <main class="main-content">
             <header class="header">
@@ -35,7 +29,7 @@
                     <input type="text" placeholder="Rechercher un anime, genre, personnage...">
                     <button class="search-btn">🔍</button>
                 </div>
-                <div class="user-profile">
+                <div class="user-profil">
                     <img src="https://via.placeholder.com/40" alt="User Avatar" class="avatar">
                     <span>Utilisateur</span>
                 </div>
@@ -54,55 +48,151 @@
                 </div>
             </section>
             <section class="genres-section">
-                <p>Découvrez les animes qui font vibrer les fans en ce moment, classés par genre.</p>
+                <p class="genres-subtitle">Découvrez les animes qui font vibrer les fans en ce moment, classés par genre.</p>
                 <div class="genres-list">
-                    <div class="genre-item" style="background: linear-gradient(135deg, #ff6b6b, #ff8787);">
+                    <!-- Carrousel Shonen -->
+                    <div class="genre-item shonen" data-genre="shonen">
                         <div class="genre-header">Shonen</div>
-                        <div class="genre-anime-list">
-                            <div class="anime-card">
-                                <img src="https://via.placeholder.com/200x300?text=Jujutsu+Kaisen" alt="Jujutsu Kaisen">
-                                <span>Jujutsu Kaisen</span>
+                        <div class="carousel-container">
+                            <button class="carousel-prev">❮</button>
+                            <div class="genre-anime-list" id="shonen-list">
+                                <a href="anime-details.html?id=123" class="anime-link">
+                                    <div class="anime-card">
+                                        <!-- Contenu de la carte -->
+                                    </div>
+                                </a>
                             </div>
-                            <div class="anime-card">
-                                <img src="https://via.placeholder.com/200x300?text=My+Hero+Academia" alt="My Hero Academia">
-                                <span>My Hero Academia</span>
-                            </div>
-                            <div class="anime-card">
-                                <img src="https://via.placeholder.com/200x300?text=One+Piece" alt="One Piece">
-                                <span>One Piece</span>
-                            </div>
+                            <button class="carousel-next">❯</button>
                         </div>
                     </div>
-                    <div class="genre-item" style="background: linear-gradient(135deg, #4ecdc4, #6be4dc);">
+                    <!-- Carrousel Seinen -->
+                    <div class="genre-item seinen" data-genre="seinen">
                         <div class="genre-header">Seinen</div>
-                        <div class="genre-anime-list">
-                            <div class="anime-card">
-                                <img src="https://via.placeholder.com/200x300?text=Attack+on+Titan" alt="Attack on Titan">
-                                <span>Attack on Titan</span>
-                            </div>
-                            <div class="anime-card">
-                                <img src="https://via.placeholder.com/200x300?text=Tokyo+Revengers" alt="Tokyo Revengers">
-                                <span>Tokyo Revengers</span>
-                            </div>
+                        <div class="carousel-container">
+                            <button class="carousel-prev">❮</button>
+                            <div class="genre-anime-list" id="seinen-list"></div>
+                            <button class="carousel-next">❯</button>
                         </div>
                     </div>
-                    <div class="genre-item" style="background: linear-gradient(135deg, #ffcc70, #ffe190);">
+                    <!-- Carrousel Comédie -->
+                    <div class="genre-item comedy" data-genre="comedy">
                         <div class="genre-header">Comédie</div>
-                        <div class="genre-anime-list">
-                            <div class="anime-card">
-                                <img src="https://via.placeholder.com/200x300?text=Spy+x+Family" alt="Spy x Family">
-                                <span>Spy x Family</span>
-                            </div>
-                            <div class="anime-card">
-                                <img src="https://via.placeholder.com/200x300?text=Konosuba" alt="Konosuba">
-                                <span>Konosuba</span>
-                            </div>
+                        <div class="carousel-container">
+                            <button class="carousel-prev">❮</button>
+                            <div class="genre-anime-list" id="comedy-list"></div>
+                            <button class="carousel-next">❯</button>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
     </div>
+    <script>
+        // Fonction pour récupérer un cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+    
+        // Exécuter au chargement de la page
+        document.addEventListener("DOMContentLoaded", () => {
+            const username = getCookie("username");
+            const authButtons = document.querySelector(".auth-button");
+            const loginBtn = document.querySelector(".login-btn");
+            const registerBtn = document.querySelector(".register-btn");
+    
+            console.log("Cookie username:", username);
+    
+            if (username) {
+                fetch("/api/profile")
+                    .then(response => {
+                        if (!response.ok) throw new Error("Erreur lors du chargement du profil");
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Met à jour la div "user-profil" avec le nom et l'avatar
+                        const userProfil = document.querySelector(".user-profil");
+                        if (data && data.username) {
+                            userProfil.innerHTML = `
+                                <img src="${data.profilePicture}" alt="Avatar" class="avatar" style="border-radius:50%;width:40px;height:40px;">
+                                <span>${data.username}</span>
+                            `;
+                        }
+                    })
+                    .catch(error => console.error("Erreur:", error));
+
+                // Utilisateur connecté : masquer les boutons de connexion/inscription
+                loginBtn.style.display = "none";
+                registerBtn.style.display = "none";
+    
+                // Ajouter un bouton de déconnexion
+                const logoutBtn = document.createElement("button");
+                logoutBtn.textContent = "Déconnexion";
+                logoutBtn.className = "btn logout-btn";
+                logoutBtn.style.backgroundColor = "#e74c3c"; // Rouge pour différencier
+                logoutBtn.style.color = "#fff";
+                logoutBtn.style.padding = "0.5rem 1rem";
+                logoutBtn.style.borderRadius = "5px";
+                logoutBtn.style.cursor = "pointer";
+                logoutBtn.addEventListener("click", () => {
+                    // Supprimer le cookie
+                    document.cookie = "username=; Max-Age=0; Path=/";
+                    console.log("Déconnexion, cookie supprimé");
+                    // Recharger la page pour réafficher les boutons
+                    window.location.href = "./index.html";
+                });
+    
+                authButtons.appendChild(logoutBtn);
+            }
+        });
+    </script>
+    <script>
+        // Fonction utilitaire pour récupérer un cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+    
+        document.addEventListener("DOMContentLoaded", () => {
+            const username = getCookie("username");
+            const authButtons = document.querySelector(".auth-button");
+            const loginBtn = document.querySelector(".login-btn");
+            const registerBtn = document.querySelector(".register-btn");
+            const userProfil = document.querySelector(".user-profil");
+    
+            if (username) {
+                fetch("/api/profile", { credentials: "include" })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Erreur lors du chargement du profil");
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Met à jour la div "user-profil" avec le nom et l'avatar
+                        if (data && data.username) {
+                            userProfil.innerHTML = `
+                                <img src="${data.profilePicture || 'https://via.placeholder.com/40'}" alt="Avatar" class="avatar" style="border-radius:50%;width:40px;height:40px;">
+                                <span>${data.username}</span>
+                            `;
+                        }
+                    })
+                    .catch(error => console.error("Erreur:", error));
+    
+                // Utilisateur connecté : masquer les boutons de connexion/inscription
+                loginBtn.style.display = "none";
+                registerBtn.style.display = "none";
+            } else {
+                // Aucune session -> masquer le profil
+                userProfil.style.display = "none";
+                // S'assurer que les boutons de connexion sont visibles
+                loginBtn.style.display = "block";
+                registerBtn.style.display = "block";
+            }
+        });
+    </script>
     <script src="js/global.js"></script>
     <script src="js/pages.js"></script>
 </body>

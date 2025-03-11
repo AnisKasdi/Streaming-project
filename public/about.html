@@ -19,15 +19,10 @@
                 <li><a href="index.html"><span>🏠</span> Accueil</a></li>
                 <li><a href="discover.html"><span>🔍</span> Découvrir</a></li>
                 <li><a href="genres.html"><span>🎭</span> Genres</a></li>
-                <li><a href="profile.html"><span>👤</span> Profil</a></li>
+                <li><a href="profil.html"><span>👤</span> Profil</a></li>
                 <li><a href="about.html" class="active"><span>ℹ</span> À Propos</a></li>
             </ul>
-            <div class="theme-toggle">
-                <input type="checkbox" id="theme-switch">
-                <label for="theme-switch" class="switch">
-                    <span class="slider"></span>
-                </label>
-            </div>
+
         </nav>
         <main class="main-content">
             <h1>À Propos</h1>
@@ -35,6 +30,50 @@
             <p>Contact : support@animeodyssey.com</p>
         </main>
     </div>
+    <script>
+        // Fonction pour récupérer un cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
+        }
+    
+        // Exécuter au chargement de la page
+        document.addEventListener("DOMContentLoaded", () => {
+            const username = getCookie("username");
+            const authButtons = document.querySelector(".auth-button");
+            const loginBtn = document.querySelector(".login-btn");
+            const registerBtn = document.querySelector(".register-btn");
+    
+            console.log("Cookie username:", username);
+    
+            if (username) {
+                // Utilisateur connecté : masquer les boutons de connexion/inscription
+                loginBtn.style.display = "none";
+                registerBtn.style.display = "none";
+    
+                // Ajouter un bouton de déconnexion
+                const logoutBtn = document.createElement("button");
+                logoutBtn.textContent = "Déconnexion";
+                logoutBtn.className = "btn logout-btn";
+                logoutBtn.style.backgroundColor = "#e74c3c"; // Rouge pour différencier
+                logoutBtn.style.color = "#fff";
+                logoutBtn.style.padding = "0.5rem 1rem";
+                logoutBtn.style.borderRadius = "5px";
+                logoutBtn.style.cursor = "pointer";
+                logoutBtn.addEventListener("click", () => {
+                    // Supprimer le cookie
+                    document.cookie = "username=; Max-Age=0; Path=/";
+                    console.log("Déconnexion, cookie supprimé");
+                    // Recharger la page pour réafficher les boutons
+                    window.location.href = "./index.html";
+                });
+    
+                authButtons.appendChild(logoutBtn);
+            }
+        });
+    </script>
     <script src="js/global.js"></script>
     <script src="js/pages.js"></script>
 </body>

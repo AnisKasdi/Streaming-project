@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connection</title>
+    <title>Connexion</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/sidebar.css">
@@ -22,12 +22,6 @@
                 <li><a href="./profil.html"><span>👤</span> Profil</a></li>
                 <li><a href="./about.html"><span>ℹ</span> À Propos</a></li>
             </ul>
-            <div class="theme-toggle">
-                <input type="checkbox" id="theme-switch">
-                <label for="theme-switch" class="switch">
-                    <span class="slider"></span>
-                </label>
-            </div>
         </nav>
         <main class="main-content">
             <header class="header">
@@ -36,12 +30,11 @@
                     <button class="search-btn">🔍</button>
                 </div>
                 <!-- Affichage pour un utilisateur non connecté -->
-
             </header>
             
             <section class="auth-section">
                 <h2>Connexion</h2>
-                <form action="/login" method="POST" class="auth-form">
+                <form id="login-form" class="auth-form">
                     <div class="form-group">
                         <label for="username">Nom d'utilisateur</label>
                         <input type="text" id="username" name="username" required>
@@ -56,6 +49,31 @@
             </section>
         </main>
     </div>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+        
+            try {
+                const response = await fetch("/api/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",  // Permet d'inclure les cookies
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    // Rediriger vers la page profil en cas de succès
+                    window.location.href = "profil.html";
+                } else {
+                    alert("Erreur : " + data.error);
+                }
+            } catch (err) {
+                alert("Erreur de connexion : " + err.message);
+            }
+        });
+    </script>
     <script src="js/global.js"></script>
     <script src="js/pages.js"></script>
 </body>

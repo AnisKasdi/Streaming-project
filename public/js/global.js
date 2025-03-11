@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const themeSwitch = document.getElementById('theme-switch');
-    if (themeSwitch) {
-        themeSwitch.addEventListener('change', () => {
-            document.body.classList.toggle('night-mode');
-        });
-    }
+    // Forcer le mode nuit pour l'ensemble du site
+    document.body.classList.add('night-mode');
+    
+    // Le code du toggle de thème a été supprimé pour ne garder que le mode nuit
 
     const sidebar = document.querySelector('.sidebar');
     if (sidebar) {

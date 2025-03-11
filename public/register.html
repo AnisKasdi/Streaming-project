@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un compte - Anime Odyssey</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        /* Styles spécifiques pour la page register */
+        .auth-section {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        body.night-mode .auth-section {
+            background: #2d3436;
+            color: #fff;
+        }
+        .auth-section h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .auth-form .form-group {
+            margin-bottom: 1rem;
+        }
+        .auth-form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .auth-form input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .auth-form button {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            background: #8e44ad;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .auth-form button:hover {
+            background: #a06cd5;
+        }
+        .switch-auth {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .switch-auth a {
+            color: #8e44ad;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar"> 
+            <div class="logo">
+                <span class="logo-text">Anime Odyssey</span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="./index.html"><span>🏠</span> Accueil</a></li>
+                <li><a href="./discover.html"><span>🔍</span> Découvrir</a></li>
+                <li><a href="./genres.html"><span>🎭</span> Genres</a></li>
+                <li><a href="./profil.html"><span>👤</span> Profil</a></li>
+                <li><a href="./about.html"><span>ℹ</span> À Propos</a></li>
+            </ul>
+        </nav>
+        <main class="main-content">
+            <section class="auth-section">
+                <h2>Créer un compte</h2>
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="username">Nom d'utilisateur</label>
+                        <input type="text" id="username" name="username" required placeholder="Entrez votre nom d'utilisateur">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" id="password" name="password" required placeholder="Entrez votre mot de passe">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmer le mot de passe</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirmez votre mot de passe">
+                    </div>
+                    <button type="submit">Créer mon compte</button>
+                </form>
+                <div class="switch-auth">
+                    <p>Vous avez déjà un compte ? <a href="auth.html">Connectez-vous</a></p>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            
+            if(password !== confirmPassword){
+                alert("Les mots de passe ne correspondent pas !");
+                return;
+            }
+
+            try {
+                const response = await fetch("/api/create-account", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                if(response.ok){
+                    alert("Compte créé avec succès !");
+                    window.location.href = "auth.html";
+                } else {
+                    alert("Erreur : " + data.error);
+                }
+            } catch(err){
+                alert("Erreur : " + err.message);
+            }
+        });
+    </script>
+</body>
+</html>
